@@ -282,12 +282,12 @@ const myEmployees = [
   }
 ];
 
-const myEmployeesAddresses = 0; // use map to get addresses here.
+const myEmployeesAddresses =  _.map(myEmployees,'address'); // use map to get addresses here.
 
 // Now we want to use map to get an array of ages of the employees.
 
-const myEmployeesAges = 0; // use map to get ages here.
-
+const myEmployeesAges = _.map(myEmployees,'age'); // use map to get ages here.
+          
 // union
 //  Union lets us take 2 arrays, and create a new array that only has 1 entry for
 //  each duplicated entry.
@@ -326,7 +326,7 @@ const breeFriendsEmails = [
   "dave@gmail.com"
 ];
 
-const listToSendEmailsTo = 0; // Put lodash here to make list of the union of the two address.
+const listToSendEmailsTo = _.union(bobFriendsEmails,breeFriendsEmails); // Put lodash here to make list of the union of the two address.
 
 // intersection
 //  Intersection lets us take two arrays, and create a new array that only
@@ -339,13 +339,13 @@ const listToSendEmailsTo = 0; // Put lodash here to make list of the union of th
 // Bob and Bree have decided that instead of inviting everyone they know to their
 // party. They are instead only going to invite those people that they both know.
 
-const listOfSharedEmails = 0; // Use lodash to create the list that are in both lists
+const listOfSharedEmails = _.intersection(bobFriendsEmails, breeFriendsEmails) // Use lodash to create the list that are in both lists
 
 // groupBy
 //  Group By lets us take an array of objects, and group then into groups based
 //  on a property.
 
-// Example  If we have an array of purchases, each of which was purchased by either Barry or Bob
+// Example If we have an array of purchases, each of which was purchased by either Barry or Bob
 //
 // const purchaseAry = [{"owner":"Barry","price":103},{"owner":"Bob","price":75},
 // {"owner":"Bob","price":73},{"owner":"Barry","price":57},{"owner":"Barry","price":128},
@@ -403,10 +403,12 @@ const purchases = [
   { month: "February", price: 23.65 }
 ];
 
-const purchasesByMonth = 0; // Use groupBy to group the purchases by the month that they were made.
+const purchasesByMonth = _.groupBy(purchases,'month'); // Use groupBy to group the purchases by the month that they were made.
 
 // Bonus Points
-const totalByMonth = 0; // Use the grouped purchasesByMonth and reduce to create a totalByMonth object.
+const totalByMonth = _.reduce(purchasesByMonth,function(sum, n){
+  return sum + n;
+}); // Use the grouped purchasesByMonth and reduce to create a totalByMonth object.
 
 // memoize
 //  Memoize lets us take a function that takes a lot of time to run, and cache (or memoize)
@@ -446,7 +448,10 @@ let slowN = 30;
 
 let fastN = 1000;
 
-let fastFibonnaci = 0; // use memoize to create a fast fibonnaci.  Use the same
+let fastFibonnaci =  _.memoize(function(n) {
+  return n < 2 ? n : fastFibonnaci(n - 1) + fastFibonnaci(n - 2);
+})
+ // use memoize to create a fast fibonnaci.  Use the same
 // recursve structure that the slowFibonnaci is using, but have it be memoized
 // so that it'll remeber the previous times it's been called and increase the
 
@@ -473,7 +478,9 @@ let getDeathstar = function(n) {
 
 // getPersonApi `https://swapi.co/api/people/${n}`
 
-let getJedi = // Use Memoize to remember the previous calls made to the server
+let getJedi = _.memoize(function(n) {
+  return axios.get("https://swapi.co/api/starships/" + n);
+})// Use Memoize to remember the previous calls made to the server
   // then compare the times for the first and second calls of both the getJedi and
   // getDeathstar functions
   // There are no unit tests for this section. But play around with the
