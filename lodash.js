@@ -442,9 +442,9 @@ function slowFibonnaci(n) {
 //When ready to test uncomment the 3 lines below.
 
 let slowN = 30;
-// console.time('slowFibonnaci:' + slowN)
-// console.log(slowFibonnaci(slowN));
-// console.timeEnd('slowFibonnaci:' + slowN);
+console.time('slowFibonnaci:' + slowN)
+console.log(slowFibonnaci(slowN));
+console.timeEnd('slowFibonnaci:' + slowN);
 
 let fastN = 1000;
 
@@ -455,9 +455,9 @@ let fastFibonnaci =  _.memoize(function(n) {
 // recursve structure that the slowFibonnaci is using, but have it be memoized
 // so that it'll remeber the previous times it's been called and increase the
 
-// console.time('fastFibonnaci:' + fastN)
-// console.log(fastFibonnaci(fastN));
-// console.timeEnd('fastFibonnaci:' + fastN)
+console.time('fastFibonnaci:' + fastN)
+console.log(fastFibonnaci(fastN));
+console.timeEnd('fastFibonnaci:' + fastN)
 
 // We can also use memoize on axios calls so that we only need to make the
 // request to the server once.
@@ -470,13 +470,13 @@ let getDeathstar = function(n) {
 
 // Below we can measure the time it takes to get a return from the api call.
 
-// console.time('getDeathstar')
-// getDeathstar(9).then(e=>{
-//   console.log(e.data)
-//   console.timeEnd('getDeathstar')
-// });
+console.time('getDeathstar')
+getDeathstar(9).then(e=>{
+  console.log(e.data)
+  console.timeEnd('getDeathstar')
+});
 
-// getPersonApi `https://swapi.co/api/people/${n}`
+getPersonApi `https://swapi.co/api/people/${n}`
 
 let getJedi = _.memoize(function(n) {
   return axios.get("https://swapi.co/api/starships/" + n);
@@ -488,21 +488,21 @@ let getJedi = _.memoize(function(n) {
   // the time it takes for various parts of your code to run.  This can be
   // helpful in finding slow parts of your code that you want to improve.
 
-  // console.time('getJedi')
-  // getJedi(1).then(e=>{
-  //   console.log(e.data)
-  //   console.timeEnd('getJedi')
-  // });
+  console.time('getJedi')
+  getJedi(1).then(e=>{
+    console.log(e.data)
+    console.timeEnd('getJedi')
+  });
 
   setTimeout(() => {
-    // console.time('getDeathstar')
-    // getDeathstar(9).then(e=>{
-    //   console.log(e.data)
-    //   console.timeEnd('getDeathstar')
-    // });
-    // console.time('getJedi')
-    // getJedi(1).then(e=>{
-    //   console.log(e.data)
-    //   console.timeEnd('getJedi')
-    // });
+    console.time('getDeathstar')
+    getDeathstar(9).then(e=>{
+      console.log(e.data)
+      console.timeEnd('getDeathstar')
+    });
+    console.time('getJedi')
+    getJedi(1).then(e=>{
+      console.log(e.data)
+      console.timeEnd('getJedi')
+    });
   }, 2000);
